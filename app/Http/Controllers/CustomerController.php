@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-        $searchTerm = $request->query('search');
+        $searchTerm = $request->query("search");
 
         if ($searchTerm) {
             $customers = $this->customerService->searchCustomers($searchTerm);
@@ -40,7 +40,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         if (!$customer) {
-            return response()->json(['message' => 'Customer not found'], 404);
+            return response()->json(["message" => "Customer not found"], 404);
         }
         return response()->json($customer);
     }
@@ -49,18 +49,17 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->update($request->all());
-      
+
         return response()->json($customer);
     }
 
-    public function destroy($id)
-{
-    try {
-        $this->customerService->destroyCustomer($id);
-        return response()->json(null, 204);
-    } catch (CustomerNotFoundException $e) {
-        return response()->json(['message' => $e->getMessage()], 404);
+    public function delete($id)
+    {
+        try {
+            $this->customerService->deleteCustomer($id);
+            return response()->json(null, 204);
+        } catch (CustomerNotFoundException $e) {
+            return response()->json(["message" => $e->getMessage()], 404);
+        }
     }
-}
-
 }
