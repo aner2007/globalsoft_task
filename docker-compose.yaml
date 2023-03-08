@@ -8,9 +8,9 @@ services:
     image: myapp
     container_name: myapp
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /var/www/html/globalsoft_task
     volumes:
-      - .:/var/www/html
+      - .:/var/www/html/globalsoft_task
       - ./docker/local.ini:/usr/local/etc/php/conf.d/local.ini
     depends_on:
       - db
